@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/schoolRow2"
+
+    android:outlineSpotShadowColor="@color/black"
+    >
+
+    <TextView
+        android:id="@+id/schoolName2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:textStyle="bold"
+        android:text="Dummy"
+        android:textColor="@color/teal_700"
+
+        >
+    </TextView>
+    <TextView
+        android:id="@+id/schoolCountry2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:text="Dummys"
+        android:textStyle="bold"
+        android:textColor="@color/teal_700"
+
+
+        > </TextView>
+
+    <TextView
+        android:id="@+id/schoolAlpha2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:text="Dummsdgsdgsdgsy"
+        android:textStyle="bold"
+        android:textColor="@color/teal_700"
+
+
+        > </TextView>
+</LinearLayout>
+
+
