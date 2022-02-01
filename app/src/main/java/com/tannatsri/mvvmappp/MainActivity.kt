@@ -3,17 +3,19 @@ package com.tannatsri.mvvmappp
 import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tannatsri.mvvmappp.adapter.SchoolListAdapter
+import com.tannatsri.mvvmappp.adapter.SchoolListAdapter2
 import com.tannatsri.mvvmappp.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     var dialog : ProgressDialog?= null
-    lateinit var recyclerAdapter: SchoolListAdapter
+    lateinit var recyclerAdapter: SchoolListAdapter2
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,12 +28,12 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
         initViewModel()
 
+
     }
 
     private fun initRecyclerView() {
         schoolListRecyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerAdapter = SchoolListAdapter()
-
+        recyclerAdapter = SchoolListAdapter2()
         schoolListRecyclerView.adapter = recyclerAdapter
 
     }
@@ -41,8 +43,10 @@ class MainActivity : AppCompatActivity() {
         viewModel.getLiveDataObserver().observe(this, {
             dialog?.hide()
             if (it != null) {
-                recyclerAdapter.setSchoolList(it.school)
-                recyclerAdapter.notifyDataSetChanged()
+                Log.d("tanishq", it.school.toString())
+//                recyclerAdapter.submitList(it.school?.toMutableList())
+                recyclerAdapter.submitList(it.school!!.toMutableList())
+//                recyclerAdapter.notifyDataSetChanged()
             }else
              Toast.makeText(this, "Error in fetching data", Toast.LENGTH_SHORT).show()
         })
