@@ -72,14 +72,14 @@ class SchoolListAdapter: RecyclerView.Adapter<SchoolListAdapter.ViewHolder>() {
             fun bind(data: SchoolModel) {
                 binding.schoolName.text = data.alpha_two_code
                 binding.schoolCountry.text = "Country: " + data.country
-                binding.schoolAlpha.text = data.name
+
             }
         }
         class BoldLayout(private val binding: VerticalLayoutBinding): ViewHolder(binding) {
             fun bind(data: SchoolModel) {
                 binding.schoolName2.text = data.alpha_two_code
                 binding.schoolCountry2.text = "Country: " + data.country
-                binding.schoolAlpha2.text = data.name
+
             }
         }
 

@@ -1,19 +1,16 @@
 package com.tannatsri.mvvmappp.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.ActionMenuItemView
-import androidx.recyclerview.widget.AsyncListDiffer
+import android.widget.*
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.tannatsri.mvvmappp.MainActivity
 import com.tannatsri.mvvmappp.R
 import com.tannatsri.mvvmappp.data.SchoolModel
-import com.tannatsri.mvvmappp.databinding.SchoolListLayoutBinding
 import com.tannatsri.mvvmappp.databinding.VerticalLayoutBinding
-
 
 
 val differCallback = object: DiffUtil.ItemCallback<SchoolModel>() {
@@ -31,10 +28,9 @@ class SchoolListAdapter2: ListAdapter<SchoolModel, SchoolListAdapter2.ViewHolder
 
 //    private val differ  = AsyncListDiffer(this, differCallback)
 
-//    override fun submitList(list: MutableList<SchoolModel>?) {
-//        Log.d("tanishq1", list.toString())
-//        super.submitList(list?.let { ArrayList(it) })
-//    }
+    override fun submitList(list: MutableList<SchoolModel>?) {
+        super.submitList(list?.toMutableList())
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -43,7 +39,7 @@ class SchoolListAdapter2: ListAdapter<SchoolModel, SchoolListAdapter2.ViewHolder
 
         return when(viewType) {
             R.layout.vertical_layout -> SchoolListAdapter2.ViewHolder.NonBoldLayout(
-                SchoolListLayoutBinding.inflate(
+                VerticalLayoutBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
@@ -73,7 +69,7 @@ class SchoolListAdapter2: ListAdapter<SchoolModel, SchoolListAdapter2.ViewHolder
     }
     override fun getItemViewType(position: Int): Int {
 
-        if(position % 2 == 0) return R.layout.vertical_layout
+        if(position % 2 == 0) return R.layout.school_list_layout
         else return R.layout.school_list_layout
 
     }
@@ -82,21 +78,53 @@ class SchoolListAdapter2: ListAdapter<SchoolModel, SchoolListAdapter2.ViewHolder
 
     sealed class ViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        class NonBoldLayout(private val binding: SchoolListLayoutBinding): ViewHolder(binding) {
-            fun bind(data: SchoolModel) {
-                binding.schoolName.text = data.alpha_two_code
-                binding.schoolCountry.text = "Country: " + data.country
-                binding.schoolAlpha.text = data.name
+
+
+        class NonBoldLayout(
+            private val binding: VerticalLayoutBinding
+        ): ViewHolder(binding) {
+            lateinit var delButton: ImageButton
+            lateinit var schoolCountry2: TextView
+            lateinit var schoolName2: TextView
+
+            init {
+                delButton = binding.deleteButton
+                schoolCountry2 = binding.schoolCountry2
+                schoolName2 = binding.schoolName2
+                delButton.setOnClickListener {
+
+
+//                    super.deleteFromList(adapterPosition)
+
+
+                }
             }
+
+
+
+
+            fun bind(data: SchoolModel) {
+                binding.schoolName2.text = data.name?.slice(0..5)
+                binding.schoolCountry2.text = data.alpha_two_code
+
+            }
+
+
         }
         class BoldLayout(private val binding: VerticalLayoutBinding): ViewHolder(binding) {
+            var delButton: ImageButton? = null
             fun bind(data: SchoolModel) {
-                binding.schoolName2.text = data.alpha_two_code
-                binding.schoolCountry2.text = "Country: " + data.country
-                binding.schoolAlpha2.text = data.name
+                binding.schoolName2.text = data.name?.slice(0..5)
+                binding.schoolCountry2.text = data.alpha_two_code
+
+
             }
+
         }
 
 
     }
+
+
+
 }
